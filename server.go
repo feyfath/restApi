@@ -13,7 +13,7 @@ import (
 var db *sql.DB
 var err error
 
-type Users struct {
+type Courses struct {
 	ID    int
 	Title string
 	Desc  string
@@ -36,13 +36,13 @@ func home(w http.ResponseWriter, r *http.Request) {
 }
 
 func cours(w http.ResponseWriter, r *http.Request) {
-	var myUser Users
+	var myCourse Courses
 	coursRows, err := db.Query("select * from cours")
 	checkErr(err)
 	defer coursRows.Close()
 	for coursRows.Next() {
-		coursRows.Scan(&myUser.ID, &myUser.Title, &myUser.Desc, &myUser.Text)
-		json.NewEncoder(w).Encode(myUser)
+		coursRows.Scan(&myCourse.ID, &myCourse.Title, &myCourse.Desc, &myCourse.Text)
+		json.NewEncoder(w).Encode(myCourse)
 	}
 }
 
